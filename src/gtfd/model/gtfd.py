@@ -10,9 +10,9 @@ import torch.nn.functional as F
 from torch_geometric.data import Data, HeteroData
 
 from ..config import ModelConfig, GraphConfig, GraphEncoderConfig, TemporalEncoderConfig, FusionConfig
-from .graph_encoder import GraphAttentionEncoder, GraphEncoderWrapper
-from .temporal_encoder import GatedTemporalEncoder
-from .fusion import CrossModalFusion
+from ..encoder.graph_encoder import GraphAttentionEncoder, GraphEncoderWrapper
+from ..encoder.temporal_encoder import GatedTemporalEncoder
+from ..encoder.fusion import CrossModalFusion
 
 
 class GTFDModel(nn.Module):

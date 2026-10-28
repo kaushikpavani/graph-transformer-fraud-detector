@@ -84,7 +84,7 @@ class PaymentGraphBuilder:
         if merchant not in self._merchant_id_map:
             self._merchant_id_map[merchant] = self._next_merchant_id
             self._next_merchant_id += 1
-        return self._merchant_id_map[account]
+        return self._merchant_id_map[merchant]
 
     def build_graph(
         self,

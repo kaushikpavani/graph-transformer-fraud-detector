@@ -94,7 +94,7 @@ line-length = 100
 target-version = "py310"
 select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "ANN", "T20"]
 ignore = ["ANN101", "ANN102", "ANN103", "T201", "T203"]
-per-file-ignores = { "tests/*": ["S101", "T201", "T203"] }
+per-file-ignores = { "tests/*" = ["S101", "T201", "T203"] }
 
 [tool.mypy]
 python_version = "3.10"

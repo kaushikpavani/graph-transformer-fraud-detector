@@ -1,0 +1,6 @@
+[console_scripts]
+gtfd-calibrate = scripts.calibrate:main
+gtfd-evaluate = scripts.evaluate:main
+gtfd-generate = scripts.generate_data:main
+gtfd-pretrain = scripts.pretrain:main
+gtfd-stress = scripts.stress_test:main
