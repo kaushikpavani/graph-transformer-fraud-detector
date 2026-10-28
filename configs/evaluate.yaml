@@ -1,0 +1,56 @@
+# Evaluation Configuration
+
+model:
+  hidden_dim: 256
+  num_classes: 2
+  dropout: 0.1
+
+  graph:
+    node_types: ["account", "merchant"]
+    edge_types: ["transaction"]
+    time_window_days: 7
+
+  graph_encoder:
+    hidden_dim: 256
+    num_layers: 4
+    num_heads: 8
+
+  temporal_encoder:
+    hidden_dim: 256
+    num_layers: 3
+    num_heads: 8
+
+  fusion:
+    hidden_dim: 256
+    num_heads: 8
+
+  pretraining:
+    epochs: 0
+
+  conformal:
+    method: "aps"
+    alpha: 0.1
+
+data:
+  num_accounts: 5000
+  num_merchants: 500
+  num_transactions: 100000
+  fraud_rate: 0.02
+
+evaluation:
+  metrics:
+    - "auroc"
+    - "auprc"
+    - "f1"
+    - "precision_at_k"
+    - "recall_at_k"
+    - "ring_recall"
+  k_values: [10, 50, 100, 500]
+  adversarial_epsilons: [0.0, 0.05, 0.1, 0.15, 0.2]
+  num_adversarial_samples: 100
+  visualization: true
+
+device: "auto"
+seed: 42
+output_dir: "./outputs/evaluate"
+log_level: "INFO"

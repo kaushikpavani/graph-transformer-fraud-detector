@@ -1,0 +1,88 @@
+# Pretraining Configuration
+
+model:
+  hidden_dim: 256
+  num_classes: 2
+  dropout: 0.1
+
+  graph:
+    node_types: ["account", "merchant"]
+    edge_types: ["transaction"]
+    time_window_days: 7
+    min_node_degree: 1
+    feature_engineering: true
+    temporal_features: true
+    amount_bins: 50
+
+  graph_encoder:
+    hidden_dim: 256
+    num_layers: 4
+    num_heads: 8
+    dropout: 0.1
+    residual: true
+    edge_dim: 32
+    use_edge_attr: true
+    attention_dropout: 0.1
+    concat_heads: false
+
+  temporal_encoder:
+    hidden_dim: 256
+    num_layers: 3
+    num_heads: 8
+    dropout: 0.1
+    max_seq_length: 256
+    d_ff: 1024
+    use_rope: true
+    gated_residual: true
+    time_encoding_dim: 64
+
+  fusion:
+    hidden_dim: 256
+    num_heads: 8
+    dropout: 0.1
+    gate_type: "sigmoid"
+    cross_attention: true
+
+  pretraining:
+    mask_ratio: 0.15
+    lambda_link: 1.0
+    lambda_adv: 0.5
+    lambda_contrast: 0.5
+    adv_epsilon: 0.1
+    adv_steps: 3
+    edge_dropout: 0.1
+    temperature: 0.1
+    batch_size: 32
+    learning_rate: 1e-4
+    weight_decay: 1e-5
+    epochs: 100
+    warmup_epochs: 10
+    grad_clip: 1.0
+
+  conformal:
+    method: "aps"
+    alpha: 0.1
+    calibration_split: 0.2
+    random_state: 42
+    regularization: 0.01
+    k_reg: 5
+
+data:
+  num_accounts: 10000
+  num_merchants: 1000
+  num_transactions: 500000
+  fraud_rate: 0.02
+  ring_types:
+    - "card_testing"
+    - "account_takeover"
+    - "money_laundering"
+    - "refund_abuse"
+    - "collusion"
+  ring_size_range: [3, 10]
+  temporal_span_days: 180
+  seed: 42
+
+device: "auto"
+seed: 42
+output_dir: "./outputs/pretrain"
+log_level: "INFO"

@@ -1,0 +1,47 @@
+# Calibration Configuration
+
+model:
+  hidden_dim: 256
+  num_classes: 2
+  dropout: 0.1
+
+  graph:
+    node_types: ["account", "merchant"]
+    edge_types: ["transaction"]
+    time_window_days: 7
+
+  graph_encoder:
+    hidden_dim: 256
+    num_layers: 4
+    num_heads: 8
+
+  temporal_encoder:
+    hidden_dim: 256
+    num_layers: 3
+    num_heads: 8
+
+  fusion:
+    hidden_dim: 256
+    num_heads: 8
+
+  pretraining:
+    epochs: 0  # Not used for calibration
+
+  conformal:
+    method: "aps"
+    alpha: 0.1
+    calibration_split: 0.2
+    random_state: 42
+    regularization: 0.01
+    k_reg: 5
+
+data:
+  num_accounts: 5000
+  num_merchants: 500
+  num_transactions: 100000
+  fraud_rate: 0.02
+
+device: "auto"
+seed: 42
+output_dir: "./outputs/calibrate"
+log_level: "INFO"
